@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Chatbot with GPT-3-turbo
+
+This chatbot was developed using the powerful OpenAI API and the GPT-3-turbo model. 
+Thanks to these technologies, the chatbot is capable of understanding and responding 
+to a wide range of queries in an intelligent manner. 
+
+**Created by JDdev20**
+
+[**LIVE DEMO**](URL_OF_YOUR_LIVE_DEMO)
+
 ## Getting Started
 
 First, run the development server:
