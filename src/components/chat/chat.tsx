@@ -1,26 +1,73 @@
-'use client';
- 
-import { useChat } from 'ai/react';
- 
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { useChat, Message as AiMessage } from "ai/react";
+
 export default function Chat() {
+  const [isOpen, setIsOpen] = useState(false);
+  const chatRef = useRef<HTMLDivElement>(null);
   const { messages, input, handleInputChange, handleSubmit } = useChat();
+
+  // Detect clicks outside of the chat
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (chatRef.current && !chatRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    // Add listener for clicks
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Clean up the listener
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [chatRef]);
+
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map(m => (
-        <div key={m.id} className="whitespace-pre-wrap">
-          {m.role === 'user' ? 'User: ' : 'AI: '}
-          {m.content}
+    <div>
+      {/* Floating Button */}
+      <button
+        className="fixed bottom-10 right-10 p-3 bg-indigo-600 text-white rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        🤖
+      </button>
+
+      {/* Chat Container */}
+      {isOpen && (
+        <div
+          ref={chatRef}
+          className="fixed bottom-16 right-10 w-full max-w-md px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg shadow-lg"
+        >
+          <button
+            className="absolute top-3 right-3 text-lg text-gray-600 hover:text-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            ✖
+          </button>
+          <div className="flex flex-col h-80 overflow-y-auto mb-4">
+            {messages.map((m: AiMessage) => (
+              <div
+                key={m.id}
+                className="whitespace-pre-wrap p-2 my-1 bg-white rounded shadow"
+              >
+                <span className="font-semibold">
+                  {m.role === "user" ? "You: " : "AI: "}
+                </span>
+                {m.content}
+              </div>
+            ))}
+          </div>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              value={input}
+              placeholder="Say something..."
+              onChange={handleInputChange}
+            />
+          </form>
         </div>
-      ))}
- 
-      <form onSubmit={handleSubmit}>
-        <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
-        />
-      </form>
+      )}
     </div>
   );
 }
