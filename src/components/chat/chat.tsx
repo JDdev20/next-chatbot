@@ -37,7 +37,7 @@ export default function Chat() {
       {isOpen && (
         <div
           ref={chatRef}
-          className="fixed bottom-0 inset-x-0 h-1/2 md:max-w-md mx-auto px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg shadow-lg"
+          className="fixed bottom-16 right-0 md:right-10 w-full max-w-md px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg shadow-lg"
         >
           <button
             className="absolute top-3 right-3 text-lg text-gray-600 hover:text-gray-800"
