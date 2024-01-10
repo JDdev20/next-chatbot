@@ -27,7 +27,7 @@ export default function Chat() {
     <div>
       {/* Floating Button */}
       <button
-        className="fixed bottom-10 right-10 p-3 bg-indigo-600 text-white rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105"
+        className="fixed bottom-10 right-10 p-2 md:p-3 bg-indigo-600 text-white rounded-full shadow-md hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105 text-sm md:text-base"
         onClick={() => setIsOpen(!isOpen)}
       >
         🤖
@@ -37,7 +37,7 @@ export default function Chat() {
       {isOpen && (
         <div
           ref={chatRef}
-          className="fixed bottom-16 right-10 w-full max-w-md px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg shadow-lg"
+          className="fixed bottom-0 inset-x-0 h-1/2 md:max-w-md mx-auto px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg shadow-lg"
         >
           <button
             className="absolute top-3 right-3 text-lg text-gray-600 hover:text-gray-800"
